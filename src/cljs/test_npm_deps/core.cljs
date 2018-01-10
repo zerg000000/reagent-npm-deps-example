@@ -1,5 +1,7 @@
 (ns test-npm-deps.core
   (:require [reagent.core :as reagent]
+            [test-npm-deps.events :as events]
+            [test-npm-deps.views :as views]
             [test-npm-deps.config :as config]
             [re-frame.core :as rf]))
 
@@ -10,14 +12,12 @@
     (enable-console-print!)
     (println "dev mode")))
 
-(defn main []
-  [:div "Hello World"])
-
 (defn mount-root []
   (rf/clear-subscription-cache!)
-  (reagent/render [main]
+  (reagent/render [views/main-panel]
                   (.getElementById js/document "app")))
 
 (defn ^:export init []
+  (rf/dispatch-sync [::events/initialize-db])
   (dev-setup)
   (mount-root))

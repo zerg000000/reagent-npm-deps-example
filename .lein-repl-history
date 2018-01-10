@@ -1,0 +1,4 @@
+(binding [*ns* (or (find-ns 'test-npm-deps.core) (find-ns 'user))] (load-string "(defn g []
+  (println \"kdkd\"))"))
+(g)
+(binding [*ns* (or (find-ns 'test-npm-deps.core) (find-ns 'user))] (load-string "(g)"))
