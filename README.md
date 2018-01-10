@@ -1,6 +1,6 @@
 # test-npm-deps
 
-A [re-frame](https://github.com/Day8/re-frame) application designed to ... well, that part is up to you.
+An example of how to use `npm-deps` in Reagent project
 
 ## Development Mode
 

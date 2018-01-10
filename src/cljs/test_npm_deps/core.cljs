@@ -1,22 +1,23 @@
 (ns test-npm-deps.core
   (:require [reagent.core :as reagent]
-            [re-frame.core :as re-frame]
-            [test-npm-deps.events :as events]
-            [test-npm-deps.views :as views]
-            [test-npm-deps.config :as config]))
+            [test-npm-deps.config :as config]
+            [re-frame.core :as rf]))
 
+(set! *warn-on-infer* true)
 
 (defn dev-setup []
   (when config/debug?
     (enable-console-print!)
     (println "dev mode")))
 
+(defn main []
+  [:div "Hello World"])
+
 (defn mount-root []
-  (re-frame/clear-subscription-cache!)
-  (reagent/render [views/main-panel]
+  (rf/clear-subscription-cache!)
+  (reagent/render [main]
                   (.getElementById js/document "app")))
 
 (defn ^:export init []
-  (re-frame/dispatch-sync [::events/initialize-db])
   (dev-setup)
   (mount-root))

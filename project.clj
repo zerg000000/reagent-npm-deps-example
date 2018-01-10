@@ -3,8 +3,10 @@
                  [org.clojure/clojurescript "1.9.946"]
                  [reagent "0.8.0-alpha2" :exclusions [cljsjs/react
                                                       cljsjs/react-dom
-                                                      cljsjs/create-react-class]]
-                 [re-frame "0.10.2"]]
+                                                      cljsjs/create-react-class
+                                                      cljsjs/react-dom-server]]
+                 [re-frame "0.10.2"]
+                 ]
 
   :plugins [[lein-cljsbuild "1.1.5"]]
 
@@ -33,8 +35,9 @@
                     :output-to            "resources/public/js/compiled/app.js"
                     :output-dir           "resources/public/js/compiled/out"
                     :asset-path           "js/compiled/out"
-                    :install-deps true
-                    :npm-deps {:react "16.2.0"
+                    :language-in :ecmascript5 
+                    :install-deps true 
+                    :npm-deps {:react "16.2.0"    
                                :react-dom "16.2.0"
                                :create-react-class "15.6.2"}
                     :source-map-timestamp true
@@ -47,7 +50,12 @@
      :compiler     {:main            test-npm-deps.core
                     :output-to       "resources/public/js/compiled/app.js"
                     :optimizations   :advanced
-                    :process-shim true
+                    :language-in :ecmascript5 ; react 16 need es5 or above
+                    :externs ["resources/react.ext.js"] ; a externs from react project
+                    :install-deps true ; mandatory
+                    :npm-deps {:react "16.2.0" ; mandatory
+                               :react-dom "16.2.0"
+                               :create-react-class "15.6.2"}
                     :closure-defines {goog.DEBUG false}
                     :pretty-print    false}}
 
